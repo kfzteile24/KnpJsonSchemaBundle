@@ -308,6 +308,12 @@ class Property implements \JsonSerializable
         if (!empty($this->type)) {
             if (count($this->type) === 1) {
                 $serialized['type'] = $this->type[0];
+            } elseif (count($this->type) > 1) {
+                $serialized['oneOf'] = [];
+
+                foreach ($this->type as $type) {
+                    $serialized['oneOf'][] = ['type' => $type];
+                }
             } else {
                 $serialized['type'] = $this->type;
             }
